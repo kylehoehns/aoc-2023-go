@@ -1,8 +1,9 @@
 package files
 
 import (
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestReadLines(t *testing.T) {
@@ -24,4 +25,20 @@ func TestRead(t *testing.T) {
 
 		assert.Equal(t, expected, actual)
 	})
+}
+
+func TestReadLinesWithGaps(t *testing.T) {
+
+	t.Run("Take a file name relative to the current file and return lines grouped when broken by space", func(t *testing.T) {
+
+		expected := [][]string{
+			{"this", "is", "a"},
+			{"test", "file"},
+			{"end"},
+		}
+		actual := ReadLinesWithGaps("./input-with-gaps.txt")
+
+		assert.Equal(t, expected, actual)
+	})
+
 }

@@ -1,8 +1,9 @@
 package ints
 
 import (
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestSumList(t *testing.T) {
@@ -26,4 +27,24 @@ func TestFromString(t *testing.T) {
 	t.Run("Should panic if provide a string that cannot be turned into an int", func(t *testing.T) {
 		assert.Panics(t, func() { FromString("test") })
 	})
+}
+
+func TestFromSliceString(t *testing.T) {
+
+	t.Run("Should convert slice string to slice int", func(t *testing.T) {
+		expected := []int{1, 2, 3}
+		actual := FromStringSlice([]string{"1", "2", "3"})
+		assert.Equal(t, expected, actual)
+	})
+
+}
+
+func TestSumStringSlice(t *testing.T) {
+
+	t.Run("Should add up all values in a slice of strings", func(t *testing.T) {
+		expected := 6
+		actual := SumStringSlice([]string{"1", "2", "3"})
+		assert.Equal(t, expected, actual)
+	})
+
 }

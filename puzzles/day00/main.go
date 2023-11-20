@@ -2,46 +2,57 @@ package main
 
 import (
 	"fmt"
-	"strconv"
+	"sort"
 
 	"github.com/kylehoehns/aoc-2023-go/utils/files"
+	"github.com/kylehoehns/aoc-2023-go/utils/ints"
 )
 
-// Example using 2020 Day 1 https://adventofcode.com/2020/day/1
+type elf struct {
+	totalCalories int
+}
+
+// Example using 2022 Day 1 https://adventofcode.com/2022/day/1
 func main() {
-	lines := files.ReadLines("input.txt")
-	var expenses []int
-	for _, line := range lines {
-		i, err := strconv.Atoi(line)
-		if err != nil {
-			panic(err)
-		}
-		expenses = append(expenses, i)
-	}
-	fmt.Println("Part 1: ", part1(expenses))
-	fmt.Println("Part 2: ", part2(expenses))
+	fmt.Println("Part 1: ", elfWithMostCalories("input.txt"))
+	fmt.Println("Part 2: ", sumOfCaloriesCarriedByTopThreeElves("input.txt"))
 }
 
-func part1(expenses []int) int {
-	for i, first := range expenses {
-		for j, second := range expenses {
-			if i < j && first+second == 2020 {
-				return first * second
-			}
+func elfWithMostCalories(name string) int {
+	elves := elvesFromFile(name)
+	maxCalories := 0
+	for _, elf := range elves {
+		sum := elf.totalCalories
+		if sum > maxCalories {
+			maxCalories = sum
 		}
 	}
-	return -1
+	return maxCalories
 }
 
-func part2(expenses []int) int {
-	for _, first := range expenses {
-		for _, second := range expenses {
-			for _, third := range expenses {
-				if first+second+third == 2020 {
-					return first * second * third
-				}
-			}
-		}
+func sumOfCaloriesCarriedByTopThreeElves(name string) int {
+	elves := elvesFromFile(name)
+	// sort the elves by total calories
+	sort.Slice(elves, func(i, j int) bool {
+		return elves[i].totalCalories > elves[j].totalCalories
+	})
+
+	// sum the top three elves
+	sum := 0
+	for i := 0; i < 3; i++ {
+		sum += elves[i].totalCalories
 	}
-	return -1
+	return sum
+}
+
+func elvesFromFile(name string) []elf {
+	elves := make([]elf, 0)
+	groups := files.ReadLinesWithGaps(name)
+	for _, group := range groups {
+		elf := elf{
+			totalCalories: ints.SumStringSlice(group),
+		}
+		elves = append(elves, elf)
+	}
+	return elves
 }
