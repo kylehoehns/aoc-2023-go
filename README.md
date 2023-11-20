@@ -8,7 +8,7 @@ Using [Go](https://go.dev/)
 
 Use VS Code and open this project in a [Dev Container](https://code.visualstudio.com/docs/devcontainers/containers) without needing to install any tooling locally.
 
-Inside the container, run the following command to test a given day's problem.
+Run the following command to test a given day's problem.
 
 ```shell
 go test ./puzzles/day00
