@@ -24,3 +24,15 @@ func Abs(i int) int {
 	}
 	return i
 }
+
+func FromStringSlice(strs []string) []int {
+	vals := make([]int, 0)
+	for _, str := range strs {
+		vals = append(vals, FromString(str))
+	}
+	return vals
+}
+
+func SumStringSlice(strs []string) int {
+	return Sum(FromStringSlice(strs))
+}

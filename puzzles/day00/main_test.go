@@ -1,17 +1,16 @@
 package main
 
 import (
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestPart1(t *testing.T) {
 
 	t.Run("Part 1", func(t *testing.T) {
-
-		expenses := []int{1721, 979, 366, 299, 675, 1456}
-		expected := 514579
-		actual := part1(expenses)
+		expected := 24000
+		actual := elfWithMostCalories("test-input.txt")
 		assert.Equal(t, expected, actual)
 	})
 
@@ -20,10 +19,8 @@ func TestPart1(t *testing.T) {
 func TestPart2(t *testing.T) {
 
 	t.Run("Part 2", func(t *testing.T) {
-
-		expenses := []int{1721, 979, 366, 299, 675, 1456}
-		expected := 241861950
-		actual := part2(expenses)
+		expected := 45000
+		actual := sumOfCaloriesCarriedByTopThreeElves("test-input.txt")
 		assert.Equal(t, expected, actual)
 	})
 
