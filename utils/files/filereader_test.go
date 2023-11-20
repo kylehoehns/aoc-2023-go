@@ -1,7 +1,7 @@
 package files
 
 import (
-	"reflect"
+	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
@@ -12,10 +12,7 @@ func TestReadLines(t *testing.T) {
 		expected := []string{"this", "is", "a", "test", "file"}
 		actual := ReadLines("./input.txt")
 
-		if !reflect.DeepEqual(expected, actual) {
-			t.Errorf("Expected %s but actual was %s", expected, actual)
-		}
-
+		assert.Equal(t, expected, actual)
 	})
 
 }
@@ -25,8 +22,6 @@ func TestRead(t *testing.T) {
 		expected := "this\nis\na\ntest\nfile"
 		actual := Read("./input.txt")
 
-		if expected != actual {
-			t.Errorf("Expected %s but actual was %s", expected, actual)
-		}
+		assert.Equal(t, expected, actual)
 	})
 }
