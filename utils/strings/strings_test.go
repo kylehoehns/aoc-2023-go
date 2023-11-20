@@ -1,6 +1,9 @@
 package strings
 
-import "testing"
+import (
+	"github.com/stretchr/testify/assert"
+	"testing"
+)
 
 func TestHasAllUniqueRunes(t *testing.T) {
 	type args struct {
@@ -39,9 +42,7 @@ func TestHasAllUniqueRunes(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := HasAllUniqueRunes(tt.args.input); got != tt.want {
-				t.Errorf("HasAllUniqueRunes() = %v, want %v", got, tt.want)
-			}
+			assert.Equal(t, tt.want, HasAllUniqueRunes(tt.args.input))
 		})
 	}
 }
