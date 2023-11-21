@@ -5,6 +5,7 @@ import (
 	"testing"
 )
 
+//goland:noinspection SpellCheckingInspection
 func TestHasAllUniqueRunes(t *testing.T) {
 	type args struct {
 		input string
