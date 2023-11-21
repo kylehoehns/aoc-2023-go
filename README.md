@@ -4,9 +4,15 @@ Working through problems for [Advent of Code 2023](https://adventofcode.com/2023
 
 Using [Go](https://go.dev/)
 
-## Running
+## Setup
 
-Use VS Code and open this project in a [Dev Container](https://code.visualstudio.com/docs/devcontainers/containers) without needing to install any tooling locally.
+1. Install Go from [here](https://golang.org/doc/install).
+2. Run the following script to install dependencies.
+    ```shell
+    go mod tidy
+    ```
+
+## Running
 
 Run the following command to test a given day's problem.
 
@@ -14,8 +20,19 @@ Run the following command to test a given day's problem.
 go test ./puzzles/day00
 ```
 
-To run the given puzzle input for the day.
+
+Run the following to run the given puzzle input for the day.
 
 ```shell
 go run puzzles/day00/main.go
 ```
+
+## Template
+
+To create a template of files needed for a new day's puzzle, run the following command.
+
+```shell
+./scripts/create-day.sh 01
+```
+
+This will create a new folder named `day01` pre-created with files for the main code, test code, and input files.

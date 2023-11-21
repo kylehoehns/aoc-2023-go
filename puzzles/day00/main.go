@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"sort"
 
-	"github.com/kylehoehns/aoc-2023-go/utils/files"
-	"github.com/kylehoehns/aoc-2023-go/utils/ints"
+	"github.com/kylehoehns/aoc-2023-go/pkg/files"
+	"github.com/kylehoehns/aoc-2023-go/pkg/ints"
 )
 
 type elf struct {
@@ -50,7 +50,7 @@ func elvesFromFile(name string) []elf {
 	groups := files.ReadLinesWithGaps(name)
 	for _, group := range groups {
 		elf := elf{
-			totalCalories: ints.SumStringSlice(group),
+			totalCalories: ints.ToStringAndSum(group),
 		}
 		elves = append(elves, elf)
 	}

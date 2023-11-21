@@ -43,8 +43,29 @@ func TestSumStringSlice(t *testing.T) {
 
 	t.Run("Should add up all values in a slice of strings", func(t *testing.T) {
 		expected := 6
-		actual := SumStringSlice([]string{"1", "2", "3"})
+		actual := ToStringAndSum([]string{"1", "2", "3"})
 		assert.Equal(t, expected, actual)
 	})
 
+}
+
+func TestAbs(t *testing.T) {
+
+	t.Run("Should return the absolute value of a negative int", func(t *testing.T) {
+		expected := 3
+		actual := Abs(-3)
+		assert.Equal(t, expected, actual)
+	})
+
+	t.Run("Should return the absolute value of a positive int", func(t *testing.T) {
+		expected := 3
+		actual := Abs(3)
+		assert.Equal(t, expected, actual)
+	})
+
+	t.Run("Should return the absolute value of zero", func(t *testing.T) {
+		expected := 0
+		actual := Abs(0)
+		assert.Equal(t, expected, actual)
+	})
 }

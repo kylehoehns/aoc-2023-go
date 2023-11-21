@@ -7,6 +7,7 @@ import (
 	"runtime"
 )
 
+// ReadLines reads a file and returns a slice of strings, one for each line
 func ReadLines(name string) []string {
 	_, callingFile, _, ok := runtime.Caller(1)
 	if !ok {
@@ -15,6 +16,7 @@ func ReadLines(name string) []string {
 	return readLines(name, callingFile)
 }
 
+// Read reads a file and returns a string containing the entire file
 func Read(name string) string {
 	_, callingFile, _, ok := runtime.Caller(1)
 	if !ok {
@@ -27,6 +29,8 @@ func Read(name string) string {
 	return string(b)
 }
 
+// ReadLinesWithGaps reads a file and returns a slice of slices of strings, one for each line
+// A gap of one or more blank lines is used to split the file into groups
 func ReadLinesWithGaps(name string) [][]string {
 	_, callingFile, _, ok := runtime.Caller(1)
 	if !ok {
@@ -57,7 +61,13 @@ func readLines(name string, callingFile string) []string {
 	if err != nil {
 		panic(err)
 	}
-	defer inputFile.Close()
+
+	defer func(inputFile *os.File) {
+		err := inputFile.Close()
+		if err != nil {
+			panic(err)
+		}
+	}(inputFile)
 
 	scanner := bufio.NewScanner(inputFile)
 	scanner.Split(bufio.ScanLines)
