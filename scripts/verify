@@ -1,0 +1,19 @@
+#! /bin/bash
+set -e
+
+echo "Verifying formatting..."
+
+FILES=$(find $1 -name '*.go')
+GOFMT_RESULT=$(gofmt -d -s $FILES 2>&1)
+
+if [[ ${#GOFMT_RESULT} != 0 ]]; then
+  echo "Files are not formatted correctly:"
+  echo "$GOFMT_RESULT"
+  exit 1
+else
+    echo "All files are formatted correctly."
+fi
+
+echo "Vetting source files..."
+go vet ./...
+echo "Source files vetted."

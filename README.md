@@ -24,7 +24,7 @@ go test ./puzzles/day00
 Run the following to run the given puzzle input for the day.
 
 ```shell
-go run puzzles/day00/main.go
+go run ./puzzles/day00/main.go
 ```
 
 ## Template
@@ -32,7 +32,7 @@ go run puzzles/day00/main.go
 To create a template of files needed for a new day's puzzle, run the following command.
 
 ```shell
-./scripts/create-day.sh 01
+./scripts/create-day 01
 ```
 
 This will create a new folder named `day01` pre-created with files for the main code, test code, and input files.
