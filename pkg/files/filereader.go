@@ -29,9 +29,9 @@ func Read(name string) string {
 	return string(b)
 }
 
-// ReadLinesWithGaps reads a file and returns a slice of slices of strings, one for each line
+// ReadParagraphs reads a file and returns a slice of slices of strings, one for each line
 // A gap of one or more blank lines is used to split the file into groups
-func ReadLinesWithGaps(name string) [][]string {
+func ReadParagraphs(name string) [][]string {
 	_, callingFile, _, ok := runtime.Caller(1)
 	if !ok {
 		panic("unable to find caller so cannot build path to read file")
