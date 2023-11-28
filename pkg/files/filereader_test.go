@@ -36,7 +36,7 @@ func TestReadLinesWithGaps(t *testing.T) {
 			{"test", "file"},
 			{"end"},
 		}
-		actual := ReadLinesWithGaps("./input-with-gaps.txt")
+		actual := ReadParagraphs("./input-with-gaps.txt")
 
 		assert.Equal(t, expected, actual)
 	})

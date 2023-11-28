@@ -47,12 +47,11 @@ func sumOfCaloriesCarriedByTopThreeElves(name string) int {
 
 func elvesFromFile(name string) []elf {
 	elves := make([]elf, 0)
-	groups := files.ReadLinesWithGaps(name)
-	for _, group := range groups {
-		elf := elf{
+	paragraphs := files.ReadParagraphs(name)
+	for _, group := range paragraphs {
+		elves = append(elves, elf{
 			totalCalories: ints.ToStringAndSum(group),
-		}
-		elves = append(elves, elf)
+		})
 	}
 	return elves
 }
