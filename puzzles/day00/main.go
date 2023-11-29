@@ -49,8 +49,9 @@ func elvesFromFile(name string) []elf {
 	elves := make([]elf, 0)
 	paragraphs := files.ReadParagraphs(name)
 	for _, group := range paragraphs {
+		calories := ints.FromStringSlice(group)
 		elves = append(elves, elf{
-			totalCalories: ints.ToStringAndSum(group),
+			totalCalories: ints.Sum(calories),
 		})
 	}
 	return elves

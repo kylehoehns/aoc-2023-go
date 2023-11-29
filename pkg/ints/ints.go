@@ -33,8 +33,3 @@ func FromStringSlice(input []string) []int {
 	}
 	return output
 }
-
-// ToStringAndSum converts a slice of strings to a slice of ints and sums them
-func ToStringAndSum(input []string) int {
-	return Sum(FromStringSlice(input))
-}
