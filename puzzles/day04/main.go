@@ -73,8 +73,7 @@ func part2(name string) int {
 	totalScratchcards := 0
 	cache := make(map[string]int)
 	for i, card := range cards {
-		forCard := card.totalScratchcards(cards[i+1:], cache)
-		totalScratchcards += forCard
+		totalScratchcards += card.totalScratchcards(cards[i+1:], cache)
 	}
 	return totalScratchcards
 }
