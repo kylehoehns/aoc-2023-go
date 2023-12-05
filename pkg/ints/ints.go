@@ -33,3 +33,13 @@ func FromStringSlice(input []string) []int {
 	}
 	return output
 }
+
+func Min(numbers []int) int {
+	m := numbers[0]
+	for _, num := range numbers {
+		if num < m {
+			m = num
+		}
+	}
+	return m
+}
