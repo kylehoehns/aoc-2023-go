@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/kylehoehns/aoc-2023-go/pkg/files"
 	"github.com/kylehoehns/aoc-2023-go/pkg/ints"
+	"math"
 	"strings"
 )
 
@@ -46,7 +47,7 @@ type Mapping struct {
 func part1(name string) int {
 	paragraphs := files.ReadParagraphs(name)
 
-	seeds := parseSeedsPart1(paragraphs)
+	seeds := parseSeeds(paragraphs)
 	a := parseAlmanac(paragraphs, seeds)
 
 	return determineSmallestLocationPart1(a)
@@ -55,7 +56,7 @@ func part1(name string) int {
 func part2(name string) int {
 	paragraphs := files.ReadParagraphs(name)
 
-	seeds := parseSeedsPart1(paragraphs)
+	seeds := parseSeeds(paragraphs)
 	a := parseAlmanac(paragraphs, seeds)
 
 	return determineSmallestLocationPart2(a)
@@ -91,7 +92,7 @@ func parseMappings(name string, paragraph []string) Mappings {
 	}
 }
 
-func parseSeedsPart1(paragraphs [][]string) []int {
+func parseSeeds(paragraphs [][]string) []int {
 	// parse "seeds: 79 14 55 13" into an array of ints
 	seeds := make([]int, 0)
 	// seeds is always the first paragraph and only has a single line
@@ -114,15 +115,42 @@ func determineSmallestLocationPart1(a Almanac) int {
 
 func determineSmallestLocationPart2(a Almanac) int {
 	locations := make([]int, 0)
+
+	allSeeds := make([]int, 0)
+
+	totalNumberOfSeeds := 0
 	for i := 0; i < len(a.seeds); i += 2 {
 		seedStart := a.seeds[i]
 		seedEnd := seedStart + a.seeds[i+1]
+		totalNumberOfSeeds += seedEnd - seedStart
 		for j := seedStart; j < seedEnd; j++ {
-			locations = append(locations, determineSeedLocation(j, a))
+			allSeeds = append(allSeeds, j)
 		}
 	}
 
+	chunks := make([][]int, 0)
+	for i := 0; i < len(allSeeds); i += 250_000_000 {
+		maxSize := float64(i) + math.Min(float64(250_000_000), float64(len(allSeeds)-i))
+		chunks = append(chunks, allSeeds[i:int64(maxSize)])
+	}
+
+	results := make(chan int, len(chunks))
+	for _, chunk := range chunks {
+		go getSmallestLocation(chunk, a, results)
+	}
+
+	for i := 0; i < len(chunks); i++ {
+		locations = append(locations, <-results)
+	}
 	return ints.Min(locations)
+}
+
+func getSmallestLocation(seeds []int, a Almanac, results chan int) {
+	locations := make([]int, 0)
+	for _, j := range seeds {
+		locations = append(locations, determineSeedLocation(j, a))
+	}
+	results <- ints.Min(locations)
 }
 
 func determineSeedLocation(seed int, a Almanac) int {
