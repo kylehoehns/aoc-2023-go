@@ -43,3 +43,12 @@ func Min(numbers []int) int {
 	}
 	return m
 }
+
+func AllSame(numbers []int) bool {
+	for i := 1; i < len(numbers); i++ {
+		if numbers[i] != numbers[i-1] {
+			return false
+		}
+	}
+	return true
+}

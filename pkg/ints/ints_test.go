@@ -59,3 +59,23 @@ func TestAbs(t *testing.T) {
 		assert.Equal(t, expected, actual)
 	})
 }
+
+func TestAllSame(t *testing.T) {
+
+	t.Run("Should return true if all values in a slice are the same", func(t *testing.T) {
+		assert.True(t, AllSame([]int{1, 1, 1}))
+	})
+
+	t.Run("Should return false if all values in a slice are not the same", func(t *testing.T) {
+		assert.False(t, AllSame([]int{1, 2, 1}))
+	})
+}
+
+func TestMin(t *testing.T) {
+
+	t.Run("Should return the minimum value in a slice of ints", func(t *testing.T) {
+		expected := 1
+		actual := Min([]int{1, 2, 3})
+		assert.Equal(t, expected, actual)
+	})
+}
